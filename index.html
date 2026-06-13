@@ -561,31 +561,35 @@
          .arch-title { font-size: 1.2rem; font-weight: 600; color: var(--text-main); margin-bottom: 10px; }
          .arch-desc { font-size: 0.9rem; color: var(--text-light); margin-bottom: 25px; line-height: 1.6; }
 
-         /* --- 核心：进度条样式 --- */
-         .skill-item { margin-bottom: 22px; }
+         /* --- 技能项：左侧竖向色条 + 衬线标题 --- */
+         .skill-item {
+             margin-bottom: 26px;
+             padding: 4px 0 4px 18px;
+             border-left: 3px solid var(--track-color);
+         }
+         .skill-item:last-child { margin-bottom: 0; }
+
+         .pillar-1 .skill-item        { border-left-color: var(--color-work); }
+         .pillar-2 .skill-item        { border-left-color: var(--color-proj); }
+         .pillar-3 .skill-item        { border-left-color: var(--color-thought); }
+         .arch-foundation .skill-item { border-left-color: var(--color-edu); }
 
          .skill-header {
-             display: flex;
-             justify-content: space-between;
-             align-items: flex-end;
-             margin-bottom: 6px;
+             margin-bottom: 8px;
          }
 
          .skill-header h4 {
-             font-size: 0.95rem;
+             font-family: 'Noto Serif SC', serif;
+             font-size: 1.05rem;
              color: var(--text-main);
-             font-weight: 600;
-             display: flex;
-             align-items: center;
+             font-weight: 700;
+             letter-spacing: 1px;
+             line-height: 1.5;
          }
 
          .skill-header h4::before {
-             content: '▪'; margin-right: 8px; font-size: 1.2rem; line-height: 1;
+             display: none;
          }
-         .pillar-1 .skill-header h4::before { color: var(--color-work); }
-         .pillar-2 .skill-header h4::before { color: var(--color-proj); }
-         .pillar-3 .skill-header h4::before { color: var(--color-thought); }
-         .arch-foundation .skill-header h4::before { color: var(--color-edu); }
 
          .skill-level {
              font-size: 0.75rem;
@@ -619,23 +623,182 @@
          .arch-foundation .progress-fill { background-color: var(--color-edu); }
 
          .skill-item p {
-             font-size: 0.85rem;
+             font-size: 0.9rem;
              color: var(--text-light);
-             padding-left: 18px;
-             line-height: 1.5;
+             line-height: 1.75;
          }
 
          .foundation-content { flex: 1; display: grid; grid-template-columns: repeat(3, 1fr); gap: 25px; }
          .foundation-header { flex: 0 0 200px; border-right: 1px solid var(--border-color); padding-right: 30px; }
+
+         /* --- 我的短板：3 列胶囊 --- */
+         .arch-foundation .foundation-content {
+             display: grid;
+             grid-template-columns: repeat(3, 1fr);
+             gap: 18px;
+             align-items: center;
+         }
+
+         .arch-foundation .skill-item {
+             margin-bottom: 0;
+             padding: 16px 22px;
+             background-color: #FFFCF7;
+             border: none;
+             border-radius: 100px;
+             box-shadow: 0 6px 18px rgba(166, 110, 91, 0.12);
+             transition: transform 0.4s, box-shadow 0.4s;
+             text-align: center;
+         }
+
+         .arch-foundation .skill-item:hover {
+             transform: translateY(-3px);
+             box-shadow: 0 12px 28px rgba(166, 110, 91, 0.18);
+         }
+
+         .arch-foundation .skill-header {
+             margin-bottom: 0;
+         }
+
+         .arch-foundation .skill-header h4 {
+             font-family: 'Noto Serif SC', serif;
+             font-size: 1rem;
+             color: var(--color-edu);
+             font-weight: 700;
+             letter-spacing: 0.5px;
+             line-height: 1.5;
+         }
+
+         /* ================== Outputs Section (我的核心产出 / 滑动卡片) ================== */
+         #outputs {
+             background-color: var(--bg-base);
+             border-top: 1px solid var(--border-color);
+         }
+
+         .outputs-carousel-wrapper {
+             position: relative;
+             max-width: 800px;
+             margin: 0 auto;
+             padding: 0 36px;
+         }
+
+         .outputs-carousel {
+             display: flex;
+             overflow-x: auto;
+             overflow-y: visible;
+             scroll-snap-type: x mandatory;
+             scroll-behavior: smooth;
+             padding: 12px 4px 28px;
+             scrollbar-width: none;
+         }
+         .outputs-carousel::-webkit-scrollbar { display: none; }
+
+         .output-case {
+             flex: 0 0 100%;
+             scroll-snap-align: center;
+             display: flex;
+             flex-direction: column;
+             gap: 18px;
+             align-items: center;
+         }
+
+         .output-title {
+             font-family: 'Noto Sans SC', sans-serif;
+             font-size: 1.15rem;
+             color: var(--text-main);
+             font-weight: 800;
+             line-height: 1.5;
+             letter-spacing: 0.8px;
+             text-align: center;
+             margin: 0;
+         }
+
+         .output-image {
+             position: relative;
+             width: 100%;
+             border-radius: 10px;
+             overflow: hidden;
+             transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+         }
+
+         .output-image img {
+             display: block;
+             width: 100%;
+             height: auto;
+         }
+
+         .output-image:hover { transform: translateY(-3px); }
+
+         /* 左右箭头 */
+         .carousel-btn {
+             position: absolute;
+             top: 50%;
+             transform: translateY(-50%);
+             background: #fff;
+             border: 1.5px solid var(--text-main);
+             border-radius: 50%;
+             width: 44px;
+             height: 44px;
+             cursor: pointer;
+             font-size: 1.6rem;
+             line-height: 1;
+             z-index: 10;
+             color: var(--text-main);
+             box-shadow: 0 6px 18px rgba(45, 45, 40, 0.10);
+             transition: transform 0.3s, background 0.3s;
+             font-family: 'Noto Serif SC', serif;
+             padding: 0;
+             display: flex;
+             align-items: center;
+             justify-content: center;
+         }
+         .carousel-btn:hover {
+             transform: translateY(-50%) scale(1.08);
+             background: var(--bg-alt);
+         }
+         .carousel-prev { left: -8px; }
+         .carousel-next { right: -8px; }
+
+         /* 小圆点 */
+         .carousel-dots {
+             display: flex;
+             justify-content: center;
+             gap: 12px;
+             margin-top: 22px;
+         }
+         .carousel-dot {
+             width: 8px;
+             height: 8px;
+             border-radius: 50%;
+             background: var(--track-color);
+             cursor: pointer;
+             transition: all 0.3s;
+             border: none;
+             padding: 0;
+         }
+         .carousel-dot.active {
+             background: var(--color-edu);
+             transform: scale(1.45);
+         }
+
+         @media (max-width: 768px) {
+             .outputs-carousel-wrapper { padding: 0 20px; }
+             .output-meta { font-size: 0.75rem; letter-spacing: 2px; }
+             .output-category { font-size: 0.85rem; }
+             .carousel-btn { width: 36px; height: 36px; font-size: 1.3rem; }
+             .carousel-prev { left: -4px; }
+             .carousel-next { right: -4px; }
+         }
 
          /* ================== Contact Section ================== */
          #contact { background-color: var(--bg-alt); text-align: center; padding-bottom: 100px; }
          .contact-btn {
              display: inline-block; margin-top: 20px; padding: 12px 35px;
              background-color: var(--text-main); color: #fff; text-decoration: none;
+             border: none; cursor: pointer; font-family: inherit;
              border-radius: 30px; transition: background 0.3s; font-size: 1rem;
          }
          .contact-btn:hover { background-color: var(--color-work); }
+         .contact-btn.copied { background-color: var(--color-proj); }
 
          /* ================== Responsive ================== */
          @media (max-width: 992px) {
@@ -681,20 +844,18 @@
              }
              
              .skill-item {
-                 margin-bottom: 18px !important;
+                 margin-bottom: 22px !important;
+                 padding-left: 14px !important;
              }
-             
+
              .skill-header h4 {
-                 font-size: 0.85rem !important;
+                 font-size: 0.95rem !important;
+                 letter-spacing: 0.5px !important;
              }
-             
-             .skill-level {
-                 font-size: 0.7rem !important;
-             }
-             
+
              .skill-item p {
-                 font-size: 0.75rem !important;
-                 padding-left: 15px !important;
+                 font-size: 0.82rem !important;
+                 padding-left: 0 !important;
              }
              
              .arch-foundation {
@@ -717,6 +878,263 @@
                  padding: 10px 30px !important;
                  font-size: 0.9rem !important;
              }
+         }
+
+         /* ================== Manifesto Section (Bento Grid) ================== */
+         #manifesto {
+             background-color: #ECEAE4;
+             padding: 110px 6vw 120px;
+         }
+
+         .bento-header {
+             text-align: center;
+             margin-bottom: 65px;
+         }
+
+         .bento-header .section-title {
+             margin-bottom: 28px;
+         }
+
+         .bento-intro {
+             max-width: 620px;
+             margin: 0 auto;
+         }
+
+         .bento-intro p {
+             color: var(--text-light);
+             font-size: 1rem;
+             line-height: 1.95;
+             margin-bottom: 8px;
+         }
+
+         .bento-tagline {
+             margin-bottom: 16px;
+         }
+
+         .bento-grid {
+             display: grid;
+             grid-template-columns: repeat(6, 1fr);
+             gap: 22px;
+             grid-auto-rows: minmax(175px, auto);
+             max-width: 1200px;
+             margin: 0 auto;
+         }
+
+         .bento-card {
+             background-color: #fff;
+             border-radius: 24px;
+             padding: 32px 30px;
+             display: flex;
+             flex-direction: column;
+             transition: transform 0.45s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.45s ease;
+             position: relative;
+         }
+
+         .bento-card:hover {
+             transform: translateY(-4px);
+             box-shadow: 0 22px 44px rgba(45, 45, 40, 0.06);
+         }
+
+         /* Pill label (top-left of each card) */
+         .bento-pill {
+             display: inline-flex;
+             align-items: center;
+             gap: 8px;
+             align-self: flex-start;
+             padding: 7px 14px;
+             border-radius: 100px;
+             font-size: 0.82rem;
+             letter-spacing: 1.5px;
+             font-weight: 600;
+             background-color: rgba(117, 140, 122, 0.14);
+             color: var(--color-proj);
+             margin-bottom: 22px;
+         }
+
+         .bento-pill::before {
+             content: '';
+             width: 6px;
+             height: 6px;
+             border-radius: 50%;
+             background-color: var(--color-proj);
+             flex-shrink: 0;
+         }
+
+         .pill-warm  { background-color: rgba(212, 154, 106, 0.16); color: #B4814C; }
+         .pill-warm::before  { background-color: var(--color-thought); }
+
+         .pill-blue  { background-color: rgba(91, 108, 122, 0.13); color: var(--color-work); }
+         .pill-blue::before  { background-color: var(--color-work); }
+
+         .pill-brick { background-color: rgba(166, 110, 91, 0.13); color: var(--color-edu); }
+         .pill-brick::before { background-color: var(--color-edu); }
+
+         /* List inside cards (no bullets, dash prefix) */
+         .bento-list {
+             list-style: none;
+             padding: 0;
+             margin: 0;
+             flex: 1;
+         }
+         .bento-list li {
+             font-size: 0.98rem;
+             color: var(--text-main);
+             line-height: 1.95;
+             padding: 5px 0 5px 18px;
+             position: relative;
+         }
+         .bento-list li::before {
+             content: '';
+             position: absolute;
+             left: 0;
+             top: 18px;
+             width: 8px;
+             height: 1px;
+             background-color: var(--text-light);
+         }
+
+         /* Book card variant */
+         .book-name {
+             font-family: 'Noto Serif SC', serif;
+             font-size: 1.25rem;
+             color: var(--text-main);
+             font-weight: 700;
+             line-height: 1.5;
+             margin-top: auto;
+             padding-top: 4px;
+         }
+
+         .bento-reading,
+         .bento-favorite {
+             padding-right: 110px;
+         }
+
+         .book-cover {
+             position: absolute;
+             right: 16px;
+             bottom: 20px;
+             width: 88px;
+             height: auto;
+             border-radius: 4px;
+             box-shadow: 0 12px 26px rgba(45, 45, 40, 0.22);
+             transition: transform 0.45s cubic-bezier(0.25, 1, 0.5, 1);
+             pointer-events: none;
+         }
+
+         .bento-reading .book-cover  { transform: rotate(-8deg); }
+         .bento-favorite .book-cover { transform: rotate(7deg); }
+
+         .bento-reading:hover .book-cover  { transform: rotate(-3deg) scale(1.06); }
+         .bento-favorite:hover .book-cover { transform: rotate(2deg) scale(1.06); }
+
+         /* Tags card (featured) */
+         .bento-tags { padding: 38px 36px; }
+
+         .tag-block {
+             display: flex;
+             flex-direction: column;
+             gap: 22px;
+             flex: 1;
+         }
+
+         .tag-item {
+             padding-left: 18px;
+             border-left: 3px solid var(--text-light);
+         }
+         .tag-item.tag-blue  { border-left-color: var(--color-work); }
+         .tag-item.tag-green { border-left-color: var(--color-proj); }
+         .tag-item.tag-warm  { border-left-color: var(--color-thought); }
+         .tag-item.tag-brick { border-left-color: var(--color-edu); }
+
+         .tag-name {
+             display: block;
+             font-family: 'Noto Serif SC', serif;
+             font-size: 1.18rem;
+             font-weight: 700;
+             color: var(--text-main);
+             line-height: 1.5;
+             letter-spacing: 1.5px;
+         }
+
+         .tag-desc {
+             font-size: 0.93rem;
+             color: var(--text-light);
+             margin-top: 8px;
+             line-height: 1.8;
+         }
+
+         /* Grid spans (6-col layout, 8 cards) */
+         .bento-tags      { grid-column: span 4; grid-row: span 2; }
+         .bento-reading   { grid-column: span 2; }
+         .bento-favorite  { grid-column: span 2; }
+         .bento-believe   { grid-column: span 3; }
+         .bento-likes     { grid-column: span 3; }
+         .bento-incline   { grid-column: span 2; }
+         .bento-strengths { grid-column: span 2; }
+         .bento-refuse    { grid-column: span 2; }
+
+         /* Tablet: collapse to 2 cols */
+         @media (max-width: 992px) {
+             .bento-grid {
+                 grid-template-columns: repeat(2, 1fr);
+                 grid-auto-rows: minmax(155px, auto);
+             }
+             .bento-tags      { grid-column: span 2; grid-row: auto; }
+             .bento-reading,
+             .bento-favorite,
+             .bento-believe,
+             .bento-likes,
+             .bento-incline,
+             .bento-strengths,
+             .bento-refuse    { grid-column: span 1; }
+         }
+
+         /* Mobile: single column */
+         @media (max-width: 640px) {
+             #manifesto {
+                 padding: 60px 20px 70px;
+             }
+             .bento-header {
+                 margin-bottom: 40px;
+             }
+             .bento-title {
+                 font-size: 1.7rem;
+                 letter-spacing: 2px;
+             }
+             .bento-kicker {
+                 font-size: 0.78rem;
+                 letter-spacing: 3px;
+             }
+             .bento-subtitle {
+                 font-size: 0.92rem;
+             }
+             .bento-grid {
+                 grid-template-columns: 1fr;
+                 gap: 14px;
+                 grid-auto-rows: auto;
+             }
+             .bento-card,
+             .bento-tags,
+             .bento-reading,
+             .bento-favorite,
+             .bento-believe,
+             .bento-likes,
+             .bento-incline,
+             .bento-strengths,
+             .bento-refuse {
+                 grid-column: span 1;
+                 grid-row: auto;
+             }
+             .bento-card { padding: 26px 24px; }
+             .bento-tags { padding: 30px 26px; }
+             .bento-pill { font-size: 0.76rem; padding: 6px 12px; }
+             .bento-list li { font-size: 0.92rem; }
+             .book-name { font-size: 1.1rem; }
+             .bento-reading,
+             .bento-favorite { padding-right: 100px; }
+             .book-cover { width: 78px; right: 14px; bottom: 18px; }
+             .tag-name { font-size: 1.05rem; }
+             .tag-desc { font-size: 0.86rem; }
          }
     </style>
 </head>
@@ -798,15 +1216,103 @@
             </ul>
             <!-- 👇 预留的外链跳转按钮 👇 -->
             <a href="#" target="_blank" class="card-action-btn" id="card-link">了解更多完整的细节 ↗</a>
+            <a href="#" target="_blank" class="card-action-btn" id="card-link-2" style="display:none; margin-top: 10px;">备用站 ↗</a>
         </div>
     </section>
 
-    <!-- About Section -->
-    <section id="about" class="section-container">
-        <h2 class="section-title">关于我</h2>
-        <p>一个在公益领域找班上的普通人。</p>
-        </p>我在这里尝试回答：我是谁，我做过什么，我如何思考。</p>我尽可能清晰地呈现经历与产出，
-也不回避能力的边界。</p>如果你有不同视角、问题或合作机会，欢迎交流。</p>
+    <!-- Manifesto Section (Bento) -->
+    <section id="manifesto">
+        <div class="bento-header">
+            <h2 class="section-title">关于我</h2>
+            <div class="bento-intro">
+                <p class="bento-tagline">一个在公益领域找班上的普通人。</p>
+                <p>我在这里尝试回答：我是谁，我做过什么，我如何思考。</p>
+                <p>我尽可能清晰地呈现经历与产出，也不回避能力的边界。</p>
+                <p>如果你有不同视角、问题或合作机会，欢迎交流。</p>
+            </div>
+        </div>
+
+        <div class="bento-grid">
+
+            <article class="bento-card bento-tags">
+                <span class="bento-pill">我的标签</span>
+                <div class="tag-block">
+                    <div class="tag-item tag-blue">
+                        <span class="tag-name">家族里的第一代大学生</span>
+                    </div>
+                    <div class="tag-item tag-green">
+                        <span class="tag-name">跨专业选手</span>
+                    </div>
+                    <div class="tag-item tag-warm">
+                        <span class="tag-name">在上海长大的流动儿童</span>
+                        <p class="tag-desc">我的第一个月捐项目是上海太阳花，虹口社区是我长大的地方。</p>
+                    </div>
+                    <div class="tag-item tag-brick">
+                        <span class="tag-name">AI builder</span>
+                        <p class="tag-desc">我相信AI会带来巨变，使用 AI，也警惕它放大的信息差、数据不公和权力集中。</p>
+                    </div>
+                </div>
+            </article>
+
+            <article class="bento-card bento-reading">
+                <span class="bento-pill pill-warm">我最近在看的一本书</span>
+                <p class="book-name">《足利女童连续失踪事件》</p>
+                <img src="images/足利女童连续失踪事件.jpeg" alt="足利女童连续失踪事件 封面" class="book-cover">
+            </article>
+
+            <article class="bento-card bento-favorite">
+                <span class="bento-pill pill-brick">我最近很喜欢的一本书</span>
+                <p class="book-name">《明亮的夜晚》</p>
+                <img src="images/明亮的夜晚.jpg" alt="明亮的夜晚 封面" class="book-cover">
+            </article>
+
+            <article class="bento-card bento-believe">
+                <span class="bento-pill pill-blue">我相信</span>
+                <ul class="bento-list">
+                    <li>领养代替购买🐱🐶🐦</li>
+                    <li>公益有很多种做法</li>
+                    <li>工作和生活需要平衡</li>
+                </ul>
+            </article>
+
+            <article class="bento-card bento-likes">
+                <span class="bento-pill pill-warm">我喜欢</span>
+                <ul class="bento-list">
+                    <li>悬疑小说/电影/电视剧/播客</li>
+                    <li>攀岩、健身、羽毛球</li>
+                    <li>逛文具店和超市</li>
+                    <li>搭电子积木（跟着教程搭博客/跑通一个项目）</li>
+                </ul>
+            </article>
+
+            <article class="bento-card bento-incline">
+                <span class="bento-pill">我倾向</span>
+                <ul class="bento-list">
+                    <li>1对1沟通</li>
+                    <li>独立工作，而不是过长的团队头脑风暴</li>
+                    <li>拿到任务以后先自己琢磨整理思路</li>
+                </ul>
+            </article>
+
+            <article class="bento-card bento-strengths">
+                <span class="bento-pill pill-warm">我擅长</span>
+                <ul class="bento-list">
+                    <li>做各种中餐</li>
+                    <li>照顾猫咪</li>
+                    <li>临时制定旅行计划，短时间内决定交通和景点</li>
+                </ul>
+            </article>
+
+            <article class="bento-card bento-refuse">
+                <span class="bento-pill pill-brick">我拒绝</span>
+                <ul class="bento-list">
+                    <li>无效会议和无效加班</li>
+                    <li>一人多线消耗</li>
+                    <li>不合理的OKR指标</li>
+                </ul>
+            </article>
+
+        </div>
     </section>
 
     <!-- Skills Constellation Section -->
@@ -817,98 +1323,136 @@
             <div class="arch-pillar pillar-1">
                 <div class="arch-icon">01</div>
                 <h3 class="arch-title">资助管理与基金会运营</h3>
-                
+
                 <div class="skill-item">
                     <div class="skill-header">
                         <h4>全生命周期资助管理</h4>
-                        <span class="skill-level">精通</span>
-                    </div>
-                    <div class="progress-track">
-                        <div class="progress-fill" data-level="85%"></div>
                     </div>
                     <p>资助战略设定、合作伙伴遴选、项目评审、执行跟进及投后管理，确保资金效能。</p>
                 </div>
-                
+
                 <div class="skill-item">
                     <div class="skill-header">
                         <h4>尽职调查与基金会合规管理</h4>
-                        <span class="skill-level">精通</span>
-                    </div>
-                    <div class="progress-track">
-                        <div class="progress-fill" data-level="85%"></div>
                     </div>
                     <p>开展合作机构的背景尽调与财务排查，保障基金会项目合规运营。</p>
                 </div>
-                
+
                 <div class="skill-item">
                     <div class="skill-header">
                         <h4>项目与相关方管理</h4>
-                        <span class="skill-level">熟练</span>
-                    </div>
-                    <div class="progress-track">
-                        <div class="progress-fill" data-level="75%"></div>
                     </div>
                     <p>结合基金会实践经验，擅长多边合作沟通、资源统筹与执行进度把控。</p>
                 </div>
             </div>
-            
+
             <div class="arch-pillar pillar-2">
                 <div class="arch-icon">02</div>
                 <h3 class="arch-title">议题研究与敏捷交付</h3>
-            
-                
+
                 <div class="skill-item">
                     <div class="skill-header">
                         <h4>桌面研究与议题洞察</h4>
-                        <span class="skill-level">精通</span>
-                    </div>
-                    <div class="progress-track">
-                        <div class="progress-fill" data-level="85%"></div>
                     </div>
                     <p>能快速切入跨界议题，通过结构化信息检索与数据交叉验证，提炼核心决策依据。</p>
                 </div>
-                
+
                 <div class="skill-item">
                     <div class="skill-header">
                         <h4>咨询方案与 PPT 交付</h4>
-                        <span class="skill-level">精通</span>
-                    </div>
-                    <div class="progress-track">
-                        <div class="progress-fill" data-level="85%"></div>
                     </div>
                     <p>历经多个公益咨询 Case 打磨，擅长将复杂行业逻辑转化为清晰、有说服力的可视化汇报方案。</p>
                 </div>
             </div>
-            
+
             <div class="arch-pillar pillar-3">
                 <div class="arch-icon">03</div>
                 <h3 class="arch-title">社会创新与行动统筹</h3>
-                
+
                 <div class="skill-item">
                     <div class="skill-header">
                         <h4>应急响应与自发项目统筹</h4>
-                        <span class="skill-level">丰富</span>
-                    </div>
-                    <div class="progress-track">
-                        <div class="progress-fill" data-level="80%"></div>
                     </div>
                     <p>拥有疫情援助项目发起、志愿者网络搭建与高效调度的实战经验。</p>
                 </div>
-                
+
                 <div class="skill-item">
                     <div class="skill-header">
                         <h4>项目战略与结构化设计</h4>
-                        <span class="skill-level">熟练</span>
-                    </div>
-                    <div class="progress-track">
-                        <div class="progress-fill" data-level="75%"></div>
                     </div>
                     <p>基于对社会问题的认知与组织目标的理解，构建清晰的项目定位、使命愿景和价值表达框架，并将议题与内容分解为可操作的多模块结构，支撑后续实践推进。</p>
                 </div>
             </div>
-             
-            
 
+            <!-- 04. 我的短板 -->
+            <div class="arch-foundation">
+                <div class="foundation-header">
+                    <div class="arch-icon">04</div>
+                    <h3 class="arch-title">我的短板</h3>
+                </div>
+                <div class="foundation-content">
+                    <div class="skill-item">
+                        <div class="skill-header">
+                            <h4>公共表达和演讲能力</h4>
+                        </div>
+                    </div>
+
+                    <div class="skill-item">
+                        <div class="skill-header">
+                            <h4>组织战略规划和管理能力</h4>
+                        </div>
+                    </div>
+
+                    <div class="skill-item">
+                        <div class="skill-header">
+                            <h4>面向出资人的沟通能力</h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Outputs Section (我的核心产出) -->
+    <section id="outputs" class="section-container">
+        <h2 class="section-title">我的核心产出</h2>
+
+        <div class="outputs-carousel-wrapper">
+            <button class="carousel-btn carousel-prev" id="outputs-prev" aria-label="上一张">‹</button>
+
+            <div class="outputs-carousel" id="outputs-carousel">
+
+                <article class="output-case">
+                    <h3 class="output-title">基金会合规管理工作流</h3>
+                    <div class="output-image">
+                        <img src="images/output-合规管理.png" alt="">
+                    </div>
+                </article>
+
+                <article class="output-case">
+                    <h3 class="output-title">AI 赋能乡村医生项目管理</h3>
+                    <div class="output-image">
+                        <img src="images/output-公益项目管理1.png" alt="">
+                    </div>
+                </article>
+
+                <article class="output-case">
+                    <h3 class="output-title">监测评估框架搭建</h3>
+                    <div class="output-image">
+                        <img src="images/output-公益项目管理2.png" alt="">
+                    </div>
+                </article>
+
+            </div>
+
+            <button class="carousel-btn carousel-next" id="outputs-next" aria-label="下一张">›</button>
+
+            <div class="carousel-dots" id="outputs-dots">
+                <button class="carousel-dot active" data-idx="0" aria-label="第 1 张"></button>
+                <button class="carousel-dot" data-idx="1" aria-label="第 2 张"></button>
+                <button class="carousel-dot" data-idx="2" aria-label="第 3 张"></button>
+            </div>
         </div>
     </section>
 
@@ -916,7 +1460,7 @@
     <section id="contact" class="section-container">
         <h2 class="section-title">联系我</h2>
         <p style="color: var(--text-light); margin-bottom: 20px;">如果你对我感兴趣，欢迎随时交流。</p>
-        <a href="mailto:ylyuan0758@gmail.com" class="contact-btn">发送邮件沟通</a>
+        <a href="mailto:13564291248@163.com" class="contact-btn">发送邮件沟通</a>
         <br><br>
     </section>
 
@@ -957,6 +1501,9 @@
                     "以精神健康议题为核心，致力于为非自杀性自伤等困境体验者创造一个可表达、被理解的叙事空间，通过整合研究、亲历者视角与公开传播促进对话和共识。",
                 ],
                 link: "https://www.futurebeyondscars.cn/",
+                linkLabel: "项目主站 ↗",
+                link2: "https://karen0758.github.io/future-beyond-scars/",
+                link2Label: "状态管理 APP（demo） ↗",
                 color: "var(--color-proj)"
             },
             thought: {
@@ -984,6 +1531,7 @@
         const cardDesc = document.getElementById('card-desc');
         const cardAchievements = document.getElementById('card-achievements');
         const cardLink = document.getElementById('card-link');
+        const cardLink2 = document.getElementById('card-link-2');
 
         function openCard(cityId, x, y) {
             const data = mapData[cityId];
@@ -1012,6 +1560,17 @@
             // 更新外链按钮
             cardLink.href = data.link;
             cardLink.style.backgroundColor = data.color;
+            cardLink.textContent = data.linkLabel || "了解更多完整的细节 ↗";
+
+            // 第二个外链（可选）
+            if (data.link2) {
+                cardLink2.href = data.link2;
+                cardLink2.style.backgroundColor = data.color;
+                cardLink2.textContent = data.link2Label || "备用站 ↗";
+                cardLink2.style.display = 'inline-block';
+            } else {
+                cardLink2.style.display = 'none';
+            }
 
             // 改变卡片顶部边框颜色
             infoCard.style.borderTopColor = data.color;
@@ -1106,6 +1665,53 @@
 
         window.addEventListener('scroll', checkScroll);
         window.addEventListener('load', checkScroll);
+
+
+        /* ============================
+           3. 核心产出滑动卡片
+        ============================ */
+        (function() {
+            const carousel = document.getElementById('outputs-carousel');
+            if (!carousel) return;
+            const slides = carousel.querySelectorAll('.output-case');
+            const dots = document.querySelectorAll('#outputs-dots .carousel-dot');
+            const prevBtn = document.getElementById('outputs-prev');
+            const nextBtn = document.getElementById('outputs-next');
+
+            function goToSlide(idx) {
+                if (idx < 0 || idx >= slides.length) return;
+                const slide = slides[idx];
+                carousel.scrollTo({ left: slide.offsetLeft - carousel.offsetLeft, behavior: 'smooth' });
+            }
+
+            function currentIdx() {
+                const rect = carousel.getBoundingClientRect();
+                const center = rect.left + rect.width / 2;
+                let closest = 0, minDist = Infinity;
+                slides.forEach((s, i) => {
+                    const r = s.getBoundingClientRect();
+                    const c = r.left + r.width / 2;
+                    const d = Math.abs(c - center);
+                    if (d < minDist) { minDist = d; closest = i; }
+                });
+                return closest;
+            }
+
+            prevBtn.addEventListener('click', () => goToSlide(currentIdx() - 1));
+            nextBtn.addEventListener('click', () => goToSlide(currentIdx() + 1));
+            dots.forEach((d, i) => d.addEventListener('click', () => goToSlide(i)));
+
+            let scrollTimer;
+            carousel.addEventListener('scroll', () => {
+                clearTimeout(scrollTimer);
+                scrollTimer = setTimeout(() => {
+                    const i = currentIdx();
+                    dots.forEach((d, idx) => d.classList.toggle('active', idx === i));
+                }, 60);
+            });
+        })();
+
+
     </script>
 </body>
 </html>
