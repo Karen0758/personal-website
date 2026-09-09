@@ -88,8 +88,8 @@ test("the homepage has four full-screen journey pages", () => {
   assert.doesNotMatch(portfolioSource, /<Liquid/);
   assert.match(portfolioSource, /about-group__items/);
   assert.equal(existsSync(portfolioContentPath), true);
-  assert.match(styleSource, /portfolio-landscape-handpainted-v1\.png/);
-  assert.equal(existsSync(new URL("../public/images/portfolio-landscape-handpainted-v1.png", import.meta.url)), true);
+  assert.match(styleSource, /portfolio-landscape-handpainted-v1\.webp/);
+  assert.equal(existsSync(new URL("../public/images/portfolio-landscape-handpainted-v1.webp", import.meta.url)), true);
   assert.match(pageSource, /<ContactPage \/>/);
   assert.match(contactSource, /<JourneyRail isFast=\{isFast\} \/>/);
   assert.match(portfolioContentSource, /小红书|B站|GitHub|推特/);
@@ -108,17 +108,18 @@ test("the homepage has four full-screen journey pages", () => {
   assert.match(contactSource, /useState/);
   assert.match(contactSource, /onPointerEnter/);
   assert.match(contactSource, /contact-icon--xiaohongshu/);
-  assert.match(contactSource, /xiaohongshu-sprout-only-v1\.png/);
-  assert.equal(existsSync(new URL("../public/images/xiaohongshu-sprout-only-v1.png", import.meta.url)), true);
+  assert.match(contactSource, /xiaohongshu-sprout-only-v1\.webp/);
+  assert.equal(existsSync(new URL("../public/images/xiaohongshu-sprout-only-v1.webp", import.meta.url)), true);
   assert.match(styleSource, /\.contact-icon--xiaohongshu img \{ width:70px; height:70px; \}/);
   assert.doesNotMatch(contactSource, /<span>\{contact\.label\}<\/span>/);
   assert.match(styleSource, /contact-icon:hover \{ transform:translateX/);
   assert.doesNotMatch(contactSource, /03 \/ CONTACT/);
   assert.match(styleSource, /portfolio-canvas[^}]*CJKAllSeto/);
-  assert.match(seasonAssetsSource, /train-carriage-interior-v2\.png/);
+  assert.match(seasonAssetsSource, /train-carriage-interior-v2\.webp/);
   assert.match(styleSource, /CJKAllSeto/);
-  assert.match(styleSource, /cjkFonts-allseto-v1\.11-2\.ttf/);
-  assert.equal(existsSync(new URL("../public/fonts/cjkFonts-allseto-v1.11-2.ttf", import.meta.url)), true);
+  assert.match(styleSource, /cjkFonts-allseto-subset\.woff2/);
+  assert.match(styleSource, /font-display:block/);
+  assert.equal(existsSync(new URL("../public/fonts/cjkFonts-allseto-subset.woff2", import.meta.url)), true);
 });
 
 test("the about page switches between education and work panels", () => {
@@ -165,7 +166,7 @@ test("one wheel gesture cannot advance across two pages", () => {
 test("the carriage page includes interactive portfolio stickers", () => {
   const stickerSource = readFileSync(stickerSourcePath, "utf8");
   assert.match(pageSource, /<SeasonalCarriagePage \/>/);
-  assert.match(styleSource, /portfolio-stickers-sheet\.png/);
+  assert.match(styleSource, /portfolio-stickers-sheet\.webp/);
   assert.match(stickerSource, /网页与工作流/);
   assert.match(stickerSource, /获奖经历/);
   assert.match(stickerSource, /AI短片与硬件产品/);
@@ -182,8 +183,8 @@ test("the carriage page includes interactive portfolio stickers", () => {
   assert.match(styleSource, /carriage-sticker--web \{ left:32%; top:30%;/);
   assert.match(styleSource, /carriage-sticker--hardware \.carriage-sticker__panel \{ top:50%; right:calc\(100% \+ 18px\);/);
   assert.match(styleSource, /carriage-sticker--awards \{ left:calc\(73% - 240px\); top:calc\(37% - 36px\);/);
-  assert.match(styleSource, /trophy-sticker-v2\.png/);
-  assert.equal(existsSync(new URL("../public/images/trophy-sticker-v2.png", import.meta.url)), true);
+  assert.match(styleSource, /trophy-sticker-v2\.webp/);
+  assert.equal(existsSync(new URL("../public/images/trophy-sticker-v2.webp", import.meta.url)), true);
   assert.match(styleSource, /carriage-sticker--hardware \{ right:19%; bottom:15%;/);
 });
 
@@ -208,10 +209,15 @@ test("the home season controls the carriage background with China-time defaults"
   assert.match(seasonSource, /month >= 3 && month <= 5/);
   assert.match(seasonSource, /month >= 6 && month <= 8/);
   assert.match(seasonSource, /month >= 9 && month <= 11/);
-  assert.match(seasonAssetsSource, /train-carriage-interior-spring\.png/);
-  assert.match(seasonAssetsSource, /train-carriage-interior-summer\.png/);
-  assert.match(seasonAssetsSource, /train-carriage-interior-autumn|train-carriage-interior-v2\.png/);
-  assert.match(seasonAssetsSource, /train-carriage-interior-winter\.png/);
+  assert.match(seasonAssetsSource, /train-carriage-interior-spring\.webp/);
+  assert.match(seasonAssetsSource, /train-carriage-interior-summer\.webp/);
+  assert.match(seasonAssetsSource, /train-carriage-interior-v2\.webp/);
+  assert.match(seasonAssetsSource, /train-carriage-interior-winter\.webp/);
+  assert.match(seasonAssetsSource, /hero-train-landscape-spring-v3\.webp/);
+  assert.match(seasonAssetsSource, /hero-train-landscape-summer-v3\.webp/);
+  assert.match(seasonAssetsSource, /hero-train-landscape-flat-autumn-v3\.webp/);
+  assert.match(seasonAssetsSource, /hero-train-landscape-winter-v3\.webp/);
+  assert.doesNotMatch(seasonSource, /forEach\(\(item\)/);
   assert.match(heroSource, /<SeasonToggle \/>/);
   assert.match(carriageSource, /<SeasonToggle \/>/);
   assert.match(seasonToggleSource, /setSeason\(nextSeason\)/);

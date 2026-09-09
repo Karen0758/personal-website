@@ -6,6 +6,7 @@ import { preloadSeasonAssets } from "@/lib/seasonAssets";
 export type Season = "spring" | "summer" | "autumn" | "winter";
 
 const SeasonContext = createContext<{ season: Season; setSeason: (season: Season) => void } | null>(null);
+const seasonOrder: Season[] = ["spring", "summer", "autumn", "winter"];
 
 export function getSeasonForChinaMonth(month: number): Season {
   if (month >= 3 && month <= 5) return "spring";
@@ -24,10 +25,12 @@ export function SeasonProvider({ children }: { children: ReactNode }) {
   const requestId = useRef(0);
 
   useEffect(() => {
-    (["spring", "summer", "autumn", "winter"] as Season[]).forEach((item) => {
-      void preloadSeasonAssets(item).catch(() => undefined);
-    });
-  }, []);
+    const nextSeason = seasonOrder[(seasonOrder.indexOf(season) + 1) % seasonOrder.length];
+    const timer = window.setTimeout(() => {
+      void preloadSeasonAssets(nextSeason).catch(() => undefined);
+    }, 1200);
+    return () => window.clearTimeout(timer);
+  }, [season]);
 
   const setSeason = useCallback((nextSeason: Season) => {
     const currentRequest = ++requestId.current;

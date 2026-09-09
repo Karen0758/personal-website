@@ -2,20 +2,20 @@ import type { Season } from "@/components/SeasonContext";
 
 export const seasonAssets: Record<Season, { hero: string; carriage: string }> = {
   spring: {
-    hero: "/images/hero-train-landscape-spring-v3.png",
-    carriage: "/images/train-carriage-interior-spring.png",
+    hero: "/images/hero-train-landscape-spring-v3.webp",
+    carriage: "/images/train-carriage-interior-spring.webp",
   },
   summer: {
-    hero: "/images/hero-train-landscape-summer-v3.png",
-    carriage: "/images/train-carriage-interior-summer.png",
+    hero: "/images/hero-train-landscape-summer-v3.webp",
+    carriage: "/images/train-carriage-interior-summer.webp",
   },
   autumn: {
-    hero: "/images/hero-train-landscape-flat-autumn-v3.png",
-    carriage: "/images/train-carriage-interior-v2.png",
+    hero: "/images/hero-train-landscape-flat-autumn-v3.webp",
+    carriage: "/images/train-carriage-interior-v2.webp",
   },
   winter: {
-    hero: "/images/hero-train-landscape-winter-v3.png",
-    carriage: "/images/train-carriage-interior-winter.png",
+    hero: "/images/hero-train-landscape-winter-v3.webp",
+    carriage: "/images/train-carriage-interior-winter.webp",
   },
 };
 
