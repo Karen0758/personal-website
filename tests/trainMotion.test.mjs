@@ -17,13 +17,13 @@ const ringPathSource = readFileSync(new URL("../lib/ringPath.ts", import.meta.ur
 test("the homepage 3D train stays parallel to the track and sits on it", () => {
   assert.match(modelSource, /rotation=\{\[0, 0, 0\]\}/);
   assert.match(heroSource, /position=\{\[-29, -9\.35/);
-  assert.match(heroSource, /position\.x = -29/);
+  assert.match(heroSource, /compact \? -12 \+ progress \* 12 : -29 \+ progress \* 74/);
   assert.match(heroSource, /camera=\{\{ position: \[0, 5, 28\]/);
 });
 
 test("the opening train crosses the hero quickly from a lower starting position", () => {
   assert.match(heroSource, /HERO_TRAIN_DURATION_SECONDS/);
-  assert.match(heroSource, /position\.y = -9\.35/);
+  assert.match(heroSource, /position\.y = \(compact \? mobileTrackY\(size\.height\) : -9\.35\)/);
   assert.match(readFileSync(new URL("../lib/trainMotion.ts", import.meta.url), "utf8"), /HERO_TRAIN_DURATION_SECONDS = 2\.6/);
 });
 

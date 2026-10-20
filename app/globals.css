@@ -269,3 +269,35 @@ html:has(.journey-only-page) { scroll-snap-type:none; }
   .map-pin.is-active { transform: scale(1.25); }
   .pin-action.is-active { transform: rotate(45deg) scale(1.25); }
 }
+
+/* On narrow screens, let the journey grow with its content and keep every action in view. */
+@media (max-width:700px) {
+  .journey-only-page .train-hero,
+  .journey-page { min-height:100svh; height:auto; }
+  .journey-page--4 { z-index:3; }
+  .journey-page--2 { min-height:100svh; }
+  .about-canvas { position:relative; min-height:100svh; }
+  .about-canvas__surface { height:auto; min-height:0; overflow:visible; padding:20px; }
+  .about-canvas__surface::after { display:none; }
+  .about-canvas__panel { margin-top:18px; padding:18px; }
+  .about-item { padding:16px 0; }
+
+  .carriage-stickers { z-index:8; inset:auto 12px 150px; display:flex; align-items:center; justify-content:space-around; gap:8px; height:82px; }
+  .carriage-sticker--web,
+  .carriage-sticker--awards,
+  .carriage-sticker--hardware { position:relative; inset:auto; transform:none; }
+  .carriage-sticker__button,
+  .carriage-sticker--awards .carriage-sticker__button { width:clamp(68px,20vw,88px); }
+  .carriage-avg-dialog { bottom:24px; width:calc(100% - 32px); min-height:94px; padding:18px 42px 16px 18px; }
+  .carriage-avg-dialog__message { font-size:16px; }
+  .carriage-sticker__panel,
+  .carriage-sticker--hardware .carriage-sticker__panel { position:fixed; z-index:10; top:auto; right:12px; bottom:16px; left:12px; width:auto; max-height:min(65svh,560px); overflow-y:auto; transform:none; animation:none; }
+  .carriage-sticker__note { max-width:160px; }
+
+  .contact-page { min-height:100svh; display:flex; flex-direction:column; justify-content:center; gap:28px; padding:28px 18px; }
+  .contact-page__inner { width:100%; }
+  .contact-page h2 { margin:0; transform:none; font-size:clamp(48px,14vw,64px); }
+  .contact-page__links { position:relative; z-index:2; inset:auto; display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:12px; width:min(340px,100%); margin:0 auto; transform:none; pointer-events:auto; }
+  .contact-icon:nth-child(1),.contact-icon:nth-child(2),.contact-icon:nth-child(3),.contact-icon:nth-child(4) { width:100%; min-height:110px; }
+  .contact-page > .journey-rail { display:block; opacity:.36; }
+}

@@ -26,6 +26,7 @@ export default function PageSnapController() {
     };
 
     const onWheel = (event: WheelEvent) => {
+      if (window.matchMedia("(max-width: 700px)").matches) return;
       event.preventDefault();
       if (Math.abs(event.deltaY) < WHEEL_THRESHOLD) return;
       if (gestureActive) { scheduleGestureEnd(); return; }
@@ -34,6 +35,7 @@ export default function PageSnapController() {
       movePage(event.deltaY > 0 ? 1 : -1);
     };
     const onKeyDown = (event: KeyboardEvent) => {
+      if (window.matchMedia("(max-width: 700px)").matches) return;
       if (event.defaultPrevented || event.target instanceof HTMLInputElement || event.target instanceof HTMLTextAreaElement) return;
       const direction = event.key === "ArrowDown" || event.key === "PageDown" || (event.key === " " && !event.shiftKey)
         ? 1 : event.key === "ArrowUp" || event.key === "PageUp" || (event.key === " " && event.shiftKey) ? -1 : 0;
@@ -43,6 +45,7 @@ export default function PageSnapController() {
     };
     const onTouchStart = (event: TouchEvent) => { touchStartY = event.touches[0]?.clientY ?? 0; };
     const onTouchEnd = (event: TouchEvent) => {
+      if (window.matchMedia("(max-width: 700px)").matches) return;
       const deltaY = touchStartY - (event.changedTouches[0]?.clientY ?? touchStartY);
       if (Math.abs(deltaY) >= 36) movePage(deltaY > 0 ? 1 : -1);
     };
