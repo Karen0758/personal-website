@@ -2,7 +2,7 @@
 
 import { Canvas, useFrame } from "@react-three/fiber";
 import { useEffect, useRef, type MutableRefObject } from "react";
-import type { Group } from "three";
+import type { Group, OrthographicCamera } from "three";
 import JourneyTrack from "@/components/JourneyTrack";
 import { Carriage } from "@/components/Train3DPreview";
 import { RING_CIRCUMFERENCE, RING_TRAIN_RADIUS, ringPointAtDistance, ringTangentAngle } from "@/lib/ringPath";
@@ -11,7 +11,22 @@ export const JOURNEY_SLOW_SPEED = 0.9;
 export const JOURNEY_HOVER_SPEED = JOURNEY_SLOW_SPEED * 4;
 
 function isContactPageActive() {
-  return window.scrollY >= window.innerHeight * 3 - 4 && window.scrollY < window.innerHeight * 4 - 4;
+  const page = document.getElementById("journey-page-3");
+  if (!page) return false;
+  const bounds = page.getBoundingClientRect();
+  return bounds.top < window.innerHeight * 0.5 && bounds.bottom > window.innerHeight * 0.5;
+}
+
+function ResponsiveRingCamera() {
+  useFrame(({ camera, size }) => {
+    const ringCamera = camera as OrthographicCamera;
+    const zoom = Math.min(16, size.height / 50);
+    if (ringCamera.zoom !== zoom) {
+      ringCamera.zoom = zoom;
+      ringCamera.updateProjectionMatrix();
+    }
+  });
+  return null;
 }
 
 function MovingRingTrain({ speedTarget }: { speedTarget: MutableRefObject<number> }) {
@@ -92,6 +107,7 @@ export default function JourneyRail({ isFast = false }: { isFast?: boolean }) {
           camera.lookAt(0, 0, 0);
         }}
       >
+        <ResponsiveRingCamera />
         <ambientLight intensity={2.1} />
         <hemisphereLight args={["#e8f1ed", "#8c7864", 1.2]} />
         <directionalLight position={[5, 13, 8]} intensity={2.1} />

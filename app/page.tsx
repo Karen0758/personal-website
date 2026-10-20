@@ -18,6 +18,7 @@ const projects = [
 
 export default function Home() {
   return <SeasonProvider><main id="top" className="site-shell journey-only-page">
+    <div className="landscape-prompt" role="status" aria-label="横屏浏览提示"><span className="landscape-prompt__phone" aria-hidden="true" /><p>请将手机横过来<br />看看完整的火车旅程</p></div>
     <PageSnapController />
     <header className="site-header"><nav className="nav container"><Link className="brand" href="/">木子女爰：）<span>nice 2 meet u</span></Link><div className="nav-links"><a href="#journey">地图</a><a href="#about">关于我</a><a href="#outputs">产出</a><a href="#contact">联系</a></div></nav></header>
 
