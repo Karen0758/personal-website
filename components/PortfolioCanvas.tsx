@@ -36,6 +36,7 @@ export default function PortfolioCanvas() {
   return (
     <div className="portfolio-canvas about-canvas" aria-label="关于我">
       <nav className="about-canvas__tabs" aria-label="关于我内容分类">
+        <h2 className="about-canvas__side-title">关于我</h2>
         <button
           className={`about-canvas__tab${activeSection === "education" ? " is-active" : ""}`}
           type="button"

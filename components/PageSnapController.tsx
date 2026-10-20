@@ -9,7 +9,6 @@ export default function PageSnapController() {
   useEffect(() => {
     let gestureActive = false;
     let gestureTimer: number | undefined;
-    let touchStartY = 0;
     const getPages = () => Array.from(document.querySelectorAll<HTMLElement>(".train-hero[data-snap-page], .map-section[data-snap-page], .section, .journey-page[data-snap-page]"));
     const scheduleGestureEnd = () => {
       if (gestureTimer) window.clearTimeout(gestureTimer);
@@ -26,6 +25,8 @@ export default function PageSnapController() {
     };
 
     const onWheel = (event: WheelEvent) => {
+      const scrollable = event.target instanceof Element ? event.target.closest<HTMLElement>(".about-canvas__surface, .carriage-sticker__panel") : null;
+      if (scrollable && ((event.deltaY > 0 && scrollable.scrollTop + scrollable.clientHeight < scrollable.scrollHeight - 1) || (event.deltaY < 0 && scrollable.scrollTop > 0))) return;
       event.preventDefault();
       if (Math.abs(event.deltaY) < WHEEL_THRESHOLD) return;
       if (gestureActive) { scheduleGestureEnd(); return; }
@@ -41,21 +42,11 @@ export default function PageSnapController() {
       event.preventDefault();
       movePage(direction);
     };
-    const onTouchStart = (event: TouchEvent) => { touchStartY = event.touches[0]?.clientY ?? 0; };
-    const onTouchEnd = (event: TouchEvent) => {
-      const deltaY = touchStartY - (event.changedTouches[0]?.clientY ?? touchStartY);
-      if (Math.abs(deltaY) >= 36) movePage(deltaY > 0 ? 1 : -1);
-    };
-
     window.addEventListener("wheel", onWheel, { passive: false });
     window.addEventListener("keydown", onKeyDown);
-    window.addEventListener("touchstart", onTouchStart, { passive: true });
-    window.addEventListener("touchend", onTouchEnd, { passive: true });
     return () => {
       window.removeEventListener("wheel", onWheel);
       window.removeEventListener("keydown", onKeyDown);
-      window.removeEventListener("touchstart", onTouchStart);
-      window.removeEventListener("touchend", onTouchEnd);
       if (gestureTimer) window.clearTimeout(gestureTimer);
     };
   }, []);

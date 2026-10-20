@@ -31,7 +31,7 @@ export default function TrainHero() {
       className={`train-hero${isMoving ? " is-moving" : ""}`}
       onPointerEnter={startTrain}
       onPointerDown={startTrain}
-      onPointerLeave={() => setIsMoving(false)}
+      onPointerLeave={() => { if (window.matchMedia("(hover: hover)").matches) setIsMoving(false); }}
       aria-label="个人主页开场场景"
     >
       <Image unoptimized className={`train-hero__landscape${season !== visibleSeason ? " is-leaving" : ""}`} src={seasonAssets[visibleSeason].hero} alt="手绘风格的季节风景与铁轨" fill priority sizes="100vw" />
